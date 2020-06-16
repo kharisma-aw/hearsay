@@ -16,7 +16,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object ApplicationModule {
     @Provides
-    @Singleton
     fun provideApiGenerator() = ApiFactory()
 
     @Provides

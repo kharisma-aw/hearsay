@@ -1,8 +1,7 @@
 package com.awkris.hearsay.data.model
 
 import com.awkris.hearsay.data.model.response.ArticleResponse
-import java.text.SimpleDateFormat
-import java.util.*
+import com.awkris.hearsay.data.utils.formatTime
 
 data class Article(
     val author: String?,
@@ -15,17 +14,6 @@ data class Article(
     val urlToImage: String?
 ) {
     companion object {
-        private const val responseFormat = "yyyy-MM-dd"
-        private const val outputFormat = "dd MMM yyyy"
-
-        private fun formatTime(input: String): String {
-            val formatter = SimpleDateFormat(responseFormat, Locale.getDefault()).apply {
-                timeZone = TimeZone.getTimeZone("UTC")
-            }
-            val date = checkNotNull(formatter.parse(input))
-            return SimpleDateFormat(outputFormat, Locale.getDefault()).format(date)
-        }
-
         fun fromArticleResponse(response: ArticleResponse): Article {
             return with(response) {
                 Article(

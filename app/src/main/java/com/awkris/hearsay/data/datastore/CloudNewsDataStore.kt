@@ -1,9 +1,8 @@
 package com.awkris.hearsay.data.datastore
 
 import com.awkris.hearsay.data.api.NewsApi
-import com.awkris.hearsay.data.model.Article
-import com.awkris.hearsay.data.model.Article.Companion.fromArticleResponse
 import com.awkris.hearsay.data.model.PaginatedList
+import com.awkris.hearsay.data.model.response.ArticleResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -12,10 +11,10 @@ class CloudNewsDataStore @Inject constructor(private val newsApi: NewsApi) {
         language: String,
         keyword: String?,
         page: Int?
-    ): Single<PaginatedList<Article>> {
+    ): Single<PaginatedList<ArticleResponse>> {
         return newsApi.getHeadlines(language, keyword, page).map {
             PaginatedList(
-                it.articles.map(::fromArticleResponse),
+                it.articles,
                 page ?: 1,
                 it.totalResults ceilDivide DEFAULT_LIMIT
             )

@@ -31,6 +31,9 @@ class HeadlinesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         swipe_refresh.isEnabled = false
         initRecyclerView()
+        Timber.d(
+            "Repository name: ${viewModel.getRepositoryName(requireContext().applicationContext)}"
+        )
     }
 
     private fun initRecyclerView() {
