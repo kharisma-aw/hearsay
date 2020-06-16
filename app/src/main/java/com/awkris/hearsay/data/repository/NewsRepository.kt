@@ -6,9 +6,8 @@ import com.awkris.hearsay.data.model.Article
 import com.awkris.hearsay.data.model.PaginatedList
 import com.awkris.hearsay.data.persistence.SavedArticle
 import io.reactivex.Single
-import javax.inject.Inject
 
-class NewsRepository @Inject constructor(
+class NewsRepository(
     private val cloudDataStore: CloudNewsDataStore,
     private val diskDataStore: DiskNewsDataStore
 ) {

@@ -6,14 +6,12 @@ import androidx.paging.PageKeyedDataSource
 import com.awkris.hearsay.data.model.Article
 import com.awkris.hearsay.data.model.NetworkState
 import com.awkris.hearsay.data.model.PaginatedList
-import com.awkris.hearsay.data.model.response.ArticleResponse
 import com.awkris.hearsay.data.repository.NewsRepository
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import java.util.*
-import javax.inject.Inject
 
-class HeadlinesDataSource @Inject constructor (
+class HeadlinesDataSource(
     private val repository: NewsRepository
 ) : PageKeyedDataSource<Int, Article>() {
     var networkState = MutableLiveData<NetworkState>()
@@ -71,7 +69,7 @@ class HeadlinesDataSource @Inject constructor (
     }
 }
 
-class HeadlinesDataSourceFactory @Inject constructor(
+class HeadlinesDataSourceFactory(
     private val headlinesDataSource: HeadlinesDataSource
 ) : DataSource.Factory<Int, Article>() {
     private val dataSource = MutableLiveData<HeadlinesDataSource>()

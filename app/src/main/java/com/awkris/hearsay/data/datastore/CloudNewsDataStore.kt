@@ -4,9 +4,8 @@ import com.awkris.hearsay.data.api.NewsApi
 import com.awkris.hearsay.data.model.PaginatedList
 import com.awkris.hearsay.data.model.response.ArticleResponse
 import io.reactivex.Single
-import javax.inject.Inject
 
-class CloudNewsDataStore @Inject constructor(private val newsApi: NewsApi) {
+class CloudNewsDataStore(private val newsApi: NewsApi) {
     fun getHeadlines(
         language: String,
         keyword: String?,
@@ -20,6 +19,8 @@ class CloudNewsDataStore @Inject constructor(private val newsApi: NewsApi) {
             )
         }
     }
+
+    fun getDefaultLimit() = DEFAULT_LIMIT
 
     companion object {
         private const val DEFAULT_LIMIT = 20
