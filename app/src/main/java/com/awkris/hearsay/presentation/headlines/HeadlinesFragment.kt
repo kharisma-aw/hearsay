@@ -5,19 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.awkris.hearsay.HearSay.Companion.appComponent
 import com.awkris.hearsay.R
 import com.awkris.hearsay.data.model.NetworkState
-import dagger.hilt.android.AndroidEntryPoint
+import com.awkris.hearsay.di.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_refreshable_list.*
+import kotlinx.serialization.UnstableDefault
 import timber.log.Timber
+import javax.inject.Inject
 
-@AndroidEntryPoint
+@UnstableDefault
 class HeadlinesFragment : Fragment() {
-    private val viewModel: HeadlinesViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory<HeadlinesViewModel>
+    private lateinit var viewModel: HeadlinesViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        appComponent.inject(this)
+        viewModel = viewModelFactory.create(HeadlinesViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,9 +41,6 @@ class HeadlinesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         swipe_refresh.isEnabled = false
         initRecyclerView()
-        Timber.d(
-            "Repository name: ${viewModel.getRepositoryName(requireContext().applicationContext)}"
-        )
     }
 
     private fun initRecyclerView() {

@@ -1,7 +1,5 @@
 package com.awkris.hearsay.presentation.headlines
 
-import android.content.Context
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -9,10 +7,9 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.awkris.hearsay.data.model.Article
 import com.awkris.hearsay.data.model.NetworkState
-import com.awkris.hearsay.di.RepositoryInterface
-import dagger.hilt.EntryPoints
+import javax.inject.Inject
 
-class HeadlinesViewModel @ViewModelInject constructor(
+class HeadlinesViewModel @Inject constructor(
     dataSourceFactory: HeadlinesDataSourceFactory
 ) : ViewModel() {
     val networkState: LiveData<NetworkState>
@@ -31,13 +28,4 @@ class HeadlinesViewModel @ViewModelInject constructor(
 
         headlines = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
     }
-
-    fun getRepositoryName(context: Context): String {
-        val repoInterface = EntryPoints.get(context, RepositoryInterface::class.java)
-        return repoInterface.getRepository().getName()
-    }
-
-//    fun refresh() {
-//        dataSourceFactory.recreate()
-//    }
 }
