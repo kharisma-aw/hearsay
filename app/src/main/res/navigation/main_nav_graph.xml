@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/headlinesFragment">
+    <fragment
+        android:id="@+id/headlinesFragment"
+        android:name="com.awkris.hearsay.presentation.headlines.HeadlinesFragment"
+        android:label="HeadlinesFragment" >
+        <action
+            android:id="@+id/action_viewarticle"
+            app:destination="@id/webviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webviewFragment"
+        android:name="com.awkris.hearsay.presentation.webview.WebviewFragment"
+        android:label="WebviewFragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+</navigation>
